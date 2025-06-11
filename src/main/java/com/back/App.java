@@ -23,6 +23,8 @@ public class App {
             }
             else if(cmd.equals("목록")){
                 actionList();
+            }else if(cmd.startsWith("삭제")){
+                actionDelete(cmd);
             }
         }
 
@@ -80,5 +82,40 @@ public class App {
         return forListWiseSayings;
     }
 
+    void actionDelete (String cmd){
+        String[] cmdBits = cmd.split("=",2);
+
+        if(cmdBits.length < 2 || cmdBits[1].isEmpty() ){
+            System.out.println("id를 입력해주세요.");
+            return;
+        }
+
+        int id = Integer.parseInt(cmdBits[1]);
+
+        delete(id);
+
+        System.out.println("%d번 명언이 삭제되었습니다.".formatted(id));
+    }
+
+
+    void delete(int id) {
+        int deleteIndex = -1;
+        for(int i=0; i<=wiseSayingsLastIndex; i++) {
+            if (wiseSayings[i].id == id) {
+                deleteIndex = i;
+                break;
+            }
+        }
+
+        if (deleteIndex == -1 ) return;
+
+        for(int i = deleteIndex+1;i <= wiseSayingsLastIndex; i++){
+            wiseSayings[i-1] = wiseSayings[i];
+        }
+
+        wiseSayings[wiseSayingsLastIndex] = null;
+        wiseSayingsLastIndex--;
+
+    }
 }
 
