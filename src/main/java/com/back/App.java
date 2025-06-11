@@ -92,29 +92,36 @@ public class App {
 
         int id = Integer.parseInt(cmdBits[1]);
 
-        delete(id);
+        int deletedIndex = delete(id);
+
+        if (deletedIndex == -1 ){
+            System.out.println("%d번 명언은 존재하지 않습니다.".formatted(id));
+            return;
+        }
 
         System.out.println("%d번 명언이 삭제되었습니다.".formatted(id));
     }
 
 
-    void delete(int id) {
-        int deleteIndex = -1;
+    int delete(int id) {
+        int deletedIndex = -1;
         for(int i=0; i<=wiseSayingsLastIndex; i++) {
             if (wiseSayings[i].id == id) {
-                deleteIndex = i;
+                deletedIndex = i;
                 break;
             }
         }
 
-        if (deleteIndex == -1 ) return;
+        if (deletedIndex == -1 ) return deletedIndex;
 
-        for(int i = deleteIndex+1;i <= wiseSayingsLastIndex; i++){
+        for(int i = deletedIndex+1;i <= wiseSayingsLastIndex; i++){
             wiseSayings[i-1] = wiseSayings[i];
         }
 
         wiseSayings[wiseSayingsLastIndex] = null;
         wiseSayingsLastIndex--;
+
+        return deletedIndex;
 
     }
 }
