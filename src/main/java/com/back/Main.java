@@ -24,9 +24,14 @@ public class Main {
                 System.out.print("작가 : ");
                 String wiseSayingAuthor = sc.nextLine().trim();
 
-                int no = ++lastId;
+                int id = ++lastId;
 
-                System.out.println(no + "번 명언이 등록되었습니다.");
+                WiseSaying wiseSaying = new WiseSaying();
+                wiseSaying.id = id;
+                wiseSaying.content = wiseSayingContent;
+                wiseSaying.author = wiseSayingAuthor;
+
+                System.out.println( "%d번 명언이 등록되었습니다.".formatted(wiseSaying.id));
                 
             }
         }
@@ -36,3 +41,5 @@ public class Main {
 
     }
 }
+
+
