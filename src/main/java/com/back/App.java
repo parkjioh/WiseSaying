@@ -4,12 +4,12 @@ import java.util.Scanner;
 
 public class App {
 
-    Scanner sc = new Scanner(System.in);
-    int lastId = 0;
-    WiseSaying[] wiseSayings = new WiseSaying[100];
-    int wiseSayingsLastIndex = -1; //가장 마지막에 쓴게 -1 사용자는 0부터 쓸수있다.
+    private Scanner sc = new Scanner(System.in);
+    private int lastId = 0;
+    private WiseSaying[] wiseSayings = new WiseSaying[100];
+    private int wiseSayingsLastIndex = -1; //가장 마지막에 쓴게 -1 사용자는 0부터 쓸수있다.
 
-    void run() {
+    public void run() {
         System.out.println("==명언 앱 ==");
 
         while(true){
@@ -34,7 +34,7 @@ public class App {
 
     }
 
-    void actionList() {
+    private void actionList() {
         System.out.println("번호 / 작가 / 명언 ");
         System.out.println("-------------------------");
 
@@ -45,7 +45,7 @@ public class App {
         }
     }
 
-    void actionWrite() {
+    private void actionWrite() {
         System.out.print("명언 : ");
         String wiseSayingContent = sc.nextLine().trim();
         System.out.print("작가 : ");
@@ -57,22 +57,19 @@ public class App {
 
     }
 
-    WiseSaying write(String content, String author){
-        WiseSaying wiseSaying = new WiseSaying(); // while문 안에 안 넣으면 계속 같은 객체만 덮어씀!!!
-        wiseSaying.id = ++lastId;
-        wiseSaying.content = content;
-        wiseSaying.author = author;
+    private WiseSaying write(String content, String author){
+        WiseSaying wiseSaying = new WiseSaying(++lastId,content,author);
 
         wiseSayings[++wiseSayingsLastIndex] = wiseSaying;
 
         return wiseSaying;
     }
 
-    int getSize() {
+    private int getSize() {
         return wiseSayingsLastIndex + 1;
     }
 
-    WiseSaying[] findForList() {
+    private WiseSaying[] findForList() {
         WiseSaying[] forListWiseSayings = new WiseSaying[getSize()];
 
         int forListWiseSayingsIndex = -1;
@@ -84,7 +81,7 @@ public class App {
         return forListWiseSayings;
     }
 
-    void actionDelete (String cmd){
+    private void actionDelete (String cmd){
         String[] cmdBits = cmd.split("=",2);
 
         if(cmdBits.length < 2 || cmdBits[1].isEmpty() ){
@@ -104,7 +101,7 @@ public class App {
         System.out.println("%d번 명언이 삭제되었습니다.".formatted(id));
     }
 
-    int delete(int id) {
+    private int delete(int id) {
         int deletedIndex = findIndexById(id);
 
         if (deletedIndex == -1 ) return deletedIndex;
@@ -120,7 +117,7 @@ public class App {
 
     }
 
-    void actionModify (String cmd){
+    private void actionModify (String cmd){
         String[] cmdBit = cmd.split("=",2);
 
         if (cmdBit.length < 2 || cmdBit[1].isEmpty() ){
@@ -151,7 +148,7 @@ public class App {
         System.out.println("%d번 명언은 수정되었습니다.".formatted(id));
     }
 
-    WiseSaying findById(int id){
+    private WiseSaying findById(int id){
        int index = findIndexById(id);
 
        if (index == -1) return null;
@@ -159,7 +156,7 @@ public class App {
        return wiseSayings[index];
     }
 
-    int findIndexById(int id){
+    private int findIndexById(int id){
         for(int i=0; i<=wiseSayingsLastIndex;i++){
             if(wiseSayings[i].id == id) return i;
         }
