@@ -3,7 +3,6 @@ package com.back;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.IntStream;
 
 public class App {
 
@@ -96,7 +95,8 @@ public class App {
          return wiseSayings.removeIf(wiseSaying -> wiseSaying.getId() == id);
 
     }
-        /*
+
+    /*
         int deletedIndex = findIndexById(id);
         if (deletedIndex == -1 ) return deletedIndex;
         wiseSayings.remove(deletedIndex);
@@ -110,8 +110,6 @@ public class App {
              return wiseSayings.removeIf(wiseSaying -> wiseSaying.getId() == id);
         }
        */
-
-
 
     private void actionModify (String cmd){
         String[] cmdBit = cmd.split("=",2);
@@ -146,18 +144,11 @@ public class App {
     }
 
     private WiseSaying findById(int id){
-       int index = findIndexById(id);
-
-       if (index == -1) return null;
-
-       return wiseSayings.get(index);
-    }
-
-    private int findIndexById(int id){
-        return        IntStream.range(0, wiseSayings.size())
-                .filter(index -> wiseSayings.get(index).getId() == id)
+        return wiseSayings
+                .stream()
+                .filter(wiseSaying -> wiseSaying.getId() == id)
                 .findFirst()
-                .orElse(-1);
-
+                .orElse(null);
     }
+
 }
