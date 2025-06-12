@@ -82,9 +82,9 @@ public class App {
 
         int id = Integer.parseInt(cmdBits[1]);
 
-        int deletedIndex = delete(id);
+        boolean deleted = delete(id);
 
-        if (deletedIndex == -1 ){
+        if (!deleted ){
             System.out.println("%d번 명언은 존재하지 않습니다.".formatted(id));
             return;
         }
@@ -92,16 +92,26 @@ public class App {
         System.out.println("%d번 명언이 삭제되었습니다.".formatted(id));
     }
 
-    private int delete(int id) {
-        int deletedIndex = findIndexById(id);
-
-        if (deletedIndex == -1 ) return deletedIndex;
-
-        wiseSayings.remove(deletedIndex);
-
-        return deletedIndex;
+    private boolean delete(int id) {
+         return wiseSayings.removeIf(wiseSaying -> wiseSaying.getId() == id);
 
     }
+        /*
+        int deletedIndex = findIndexById(id);
+        if (deletedIndex == -1 ) return deletedIndex;
+        wiseSayings.remove(deletedIndex);
+        return deletedIndex;
+
+         기존 로직보다 성능은 안 좋지만 가독성이 좋음
+        실무에서는 이런 선택을 하면 안된다 ...
+        removeif는 boolean을 리턴함
+        wiseSayings.removeIf(wiseSaying -> wiseSaying.getId() == id);
+          private boolean delete(int id) {
+             return wiseSayings.removeIf(wiseSaying -> wiseSaying.getId() == id);
+        }
+       */
+
+
 
     private void actionModify (String cmd){
         String[] cmdBit = cmd.split("=",2);
