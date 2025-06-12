@@ -1,13 +1,15 @@
 package com.back;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.util.stream.IntStream;
 
 public class App {
 
     private Scanner sc = new Scanner(System.in);
     private int lastId = 0;
-    private WiseSaying[] wiseSayings = new WiseSaying[100];
-    private int wiseSayingsLastIndex = -1; //가장 마지막에 쓴게 -1 사용자는 0부터 쓸수있다.
+    private List<WiseSaying> wiseSayings = new ArrayList<>();
 
     public void run() {
         System.out.println("==명언 앱 ==");
@@ -38,7 +40,7 @@ public class App {
         System.out.println("번호 / 작가 / 명언 ");
         System.out.println("-------------------------");
 
-        WiseSaying[] forListWiseSayings = findForList();
+        List<WiseSaying> forListWiseSayings = findForList();
 
         for (WiseSaying wiseSaying : forListWiseSayings) {
             System.out.printf("%d / %s / %s \n", wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent());
@@ -60,25 +62,14 @@ public class App {
     private WiseSaying write(String content, String author){
         WiseSaying wiseSaying = new WiseSaying(++lastId,content,author);
 
-        wiseSayings[++wiseSayingsLastIndex] = wiseSaying;
+        wiseSayings.add(wiseSaying);
 
         return wiseSaying;
     }
 
-    private int getSize() {
-        return wiseSayingsLastIndex + 1;
-    }
 
-    private WiseSaying[] findForList() {
-        WiseSaying[] forListWiseSayings = new WiseSaying[getSize()];
-
-        int forListWiseSayingsIndex = -1;
-
-        for (int i=wiseSayingsLastIndex; i>=0;i--){
-            forListWiseSayings[++forListWiseSayingsIndex] = wiseSayings[i];
-        }
-
-        return forListWiseSayings;
+    private List<WiseSaying> findForList() {
+      return wiseSayings.reversed();
     }
 
     private void actionDelete (String cmd){
@@ -106,12 +97,7 @@ public class App {
 
         if (deletedIndex == -1 ) return deletedIndex;
 
-        for(int i = deletedIndex+1;i <= wiseSayingsLastIndex; i++){
-            wiseSayings[i-1] = wiseSayings[i];
-        }
-
-        wiseSayings[wiseSayingsLastIndex] = null;
-        wiseSayingsLastIndex--;
+        wiseSayings.remove(deletedIndex);
 
         return deletedIndex;
 
@@ -154,14 +140,14 @@ public class App {
 
        if (index == -1) return null;
 
-       return wiseSayings[index];
+       return wiseSayings.get(index);
     }
 
     private int findIndexById(int id){
-        for(int i=0; i<=wiseSayingsLastIndex;i++){
-            if(wiseSayings[i].getId() == id) return i;
-        }
-        return -1;
+        return        IntStream.range(0, wiseSayings.size())
+                .filter(index -> wiseSayings.get(index).getId() == id)
+                .findFirst()
+                .orElse(-1);
+
     }
 }
-
