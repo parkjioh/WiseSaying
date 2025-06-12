@@ -41,7 +41,7 @@ public class App {
         WiseSaying[] forListWiseSayings = findForList();
 
         for (WiseSaying wiseSaying : forListWiseSayings) {
-            System.out.printf("%d / %s / %s \n", wiseSaying.id, wiseSaying.author, wiseSaying.content);
+            System.out.printf("%d / %s / %s \n", wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent());
         }
     }
 
@@ -53,7 +53,7 @@ public class App {
 
 
         WiseSaying wiseSaying = write(wiseSayingContent, wiseSayingAuthor);
-        System.out.println( "%d번 명언이 등록되었습니다.".formatted(wiseSaying.id));
+        System.out.println( "%d번 명언이 등록되었습니다.".formatted(wiseSaying.getId()));
 
     }
 
@@ -134,17 +134,18 @@ public class App {
             return;
         }
 
-        System.out.printf("명언(기존) : %s\n", wiseSaying.content);
+        System.out.printf("명언(기존) : %s\n", wiseSaying.getContent());
         System.out.print("명언 : ");
         String content = sc.nextLine().trim();
 
-        System.out.printf("작가(기존) : %s\n", wiseSaying.author);
+        System.out.printf("작가(기존) : %s\n", wiseSaying.getAuthor());
         System.out.print("작가 : ");
         String author = sc.nextLine().trim();
 
-        wiseSaying.content = content;
-        wiseSaying.author = author;
+        wiseSaying.setContent(content);
+        wiseSaying.setAuthor(author);
 
+        //수정할 때 수정이 불가능함 ->  setter
         System.out.println("%d번 명언은 수정되었습니다.".formatted(id));
     }
 
@@ -158,7 +159,7 @@ public class App {
 
     private int findIndexById(int id){
         for(int i=0; i<=wiseSayingsLastIndex;i++){
-            if(wiseSayings[i].id == id) return i;
+            if(wiseSayings[i].getId() == id) return i;
         }
         return -1;
     }
