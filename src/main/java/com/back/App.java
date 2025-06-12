@@ -25,6 +25,8 @@ public class App {
                 actionList();
             }else if(cmd.startsWith("삭제")){
                 actionDelete(cmd);
+            }else if(cmd.startsWith("수정")){
+                actionModify(cmd);
             }
         }
 
@@ -102,15 +104,8 @@ public class App {
         System.out.println("%d번 명언이 삭제되었습니다.".formatted(id));
     }
 
-
     int delete(int id) {
-        int deletedIndex = -1;
-        for(int i=0; i<=wiseSayingsLastIndex; i++) {
-            if (wiseSayings[i].id == id) {
-                deletedIndex = i;
-                break;
-            }
-        }
+        int deletedIndex = findIndexById(id);
 
         if (deletedIndex == -1 ) return deletedIndex;
 
@@ -123,6 +118,52 @@ public class App {
 
         return deletedIndex;
 
+    }
+
+    void actionModify (String cmd){
+        String[] cmdBit = cmd.split("=",2);
+
+        if (cmdBit.length < 2 || cmdBit[1].isEmpty() ){
+            System.out.println("id를 입력해주세요.");
+            return;
+        }
+
+        int id = Integer.parseInt(cmdBit[1]);
+
+       WiseSaying wiseSaying = findById(id);
+
+        if(wiseSaying == null ){
+            System.out.println("%d번 명언은 존재하지 않습니다.".formatted(id));
+            return;
+        }
+
+        System.out.printf("명언(기존) : %s\n", wiseSaying.content);
+        System.out.print("명언 : ");
+        String content = sc.nextLine().trim();
+
+        System.out.printf("작가(기존) : %s\n", wiseSaying.author);
+        System.out.print("작가 : ");
+        String author = sc.nextLine().trim();
+
+        wiseSaying.content = content;
+        wiseSaying.author = author;
+
+        System.out.println("%d번 명언은 수정되었습니다.".formatted(id));
+    }
+
+    WiseSaying findById(int id){
+       int index = findIndexById(id);
+
+       if (index == -1) return null;
+
+       return wiseSayings[index];
+    }
+
+    int findIndexById(int id){
+        for(int i=0; i<=wiseSayingsLastIndex;i++){
+            if(wiseSayings[i].id == id) return i;
+        }
+        return -1;
     }
 }
 
