@@ -151,4 +151,12 @@ public class App {
                 .orElse(null);
     }
 
-}
+    /*
+    private int findIndexById(int id){
+        return        IntStream.range(0, wiseSayings.size())0
+                .filter(index -> wiseSayings.get(index).getId() == id)
+                .findFirst()
+                .orElse(-1);
+
+    }*/
+} 
