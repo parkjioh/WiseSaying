@@ -2,9 +2,9 @@ package com.back;
 
 public class Main {
     public static void main(String[] args) {
-        testRq1();
-//        App app = new App();
-//        app.run();
+      //  testRq1();
+       App app = new App();
+        app.run();
     }
 
     private static void testRq1() {
