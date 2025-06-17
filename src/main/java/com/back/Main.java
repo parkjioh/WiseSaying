@@ -15,7 +15,7 @@ public class Main {
         int id = rq.getParamAsInt("id",-1);
 
 
-        System.out.println("actionNmae "+ rq.getactionNmae());
+        System.out.println("actionNmae "+ rq.getactionName());
         System.out.println("param searchKeywordType : " + searchKeywordType);
         System.out.println("param searchKeyword : "+searchKeyword);
         System.out.println("param page : " + page);

@@ -1,10 +1,8 @@
 package com.back;
 
 public class WiseSaying {
-    private int id;
+    private final int id;
     private String content;
-
-
     private String author;
 
     public int getId() {

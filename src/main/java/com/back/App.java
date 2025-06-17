@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 public class App {
 
-    private Scanner sc = new Scanner(System.in);
+    private final Scanner sc = new Scanner(System.in);
     private int lastId = 0;
-    private List<WiseSaying> wiseSayings = new ArrayList<>();
+    private final List<WiseSaying> wiseSayings = new ArrayList<>();
 
     public void run() {
         System.out.println("==명언 앱 ==");
@@ -18,7 +18,7 @@ public class App {
             String cmd = sc.nextLine().trim();
             Rq rq = new Rq(cmd);
 
-            switch (rq.getactionNmae()){
+            switch (rq.getactionName()){
                 case "종료":
                     System.out.println("프로그램을 종료합니다.");
                     return;
