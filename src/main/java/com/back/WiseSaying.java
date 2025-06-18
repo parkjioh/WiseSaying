@@ -1,6 +1,7 @@
 package com.back;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class WiseSaying {
     private int id;
@@ -8,6 +9,7 @@ public class WiseSaying {
     private String author;
     private LocalDateTime createDate;
     private LocalDateTime modifyDate;
+    private static DateTimeFormatter forPrintDateTimeFormatter = DateTimeFormatter.ofPattern("yy-MM-dd HH:mm:ss");
 
     //자바에서 내부 변수를 public 하는 경우는 거의 X
     //private가 디폴트
@@ -62,5 +64,13 @@ public class WiseSaying {
 
     public void setModifyDate(LocalDateTime modifyDate) {
         this.modifyDate = modifyDate;
+    }
+
+    public String getForPrintCreateDate() {
+        return createDate.format(forPrintDateTimeFormatter);
+    }
+
+    public String getForPrintModifyDate() {
+        return modifyDate.format(forPrintDateTimeFormatter);
     }
 }
