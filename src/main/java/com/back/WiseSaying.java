@@ -1,5 +1,7 @@
 package com.back;
 
+import com.back.domain.AppContext;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -67,10 +69,10 @@ public class WiseSaying {
     }
 
     public String getForPrintCreateDate() {
-        return createDate.format(forPrintDateTimeFormatter);
+        return createDate.format(AppContext.forPrintDateTimeFormatter);
     }
 
     public String getForPrintModifyDate() {
-        return modifyDate.format(forPrintDateTimeFormatter);
+        return modifyDate.format(AppContext.forPrintDateTimeFormatter);
     }
 }

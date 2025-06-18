@@ -2,19 +2,17 @@ package com.back.domain.wiseSaying.controller;
 
 import com.back.Rq;
 import com.back.WiseSaying;
+import com.back.domain.AppContext;
 import com.back.domain.system.service.WiseSayingService;
 
 import java.util.List;
 import java.util.Scanner;
 
 public class WiseSayingController {
-    private final Scanner sc;
-    private final WiseSayingService wiseSayingservice;
+    private final Scanner sc = AppContext.sc;
+    private final WiseSayingService wiseSayingservice = AppContext.wiseSayingService;
 
-    public WiseSayingController(Scanner sc){
-        this.sc = sc;
-        this.wiseSayingservice = new WiseSayingService();
-    }
+
 
     public void actionList() {
         System.out.println("번호 / 작성 날짜 / 수정 냘짜 / 작가 / 명언   ");
