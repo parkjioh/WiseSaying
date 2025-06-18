@@ -17,13 +17,13 @@ public class WiseSayingController {
     }
 
     public void actionList() {
-        System.out.println("번호 / 작가 / 명언 ");
+        System.out.println("번호 / 작가 / 명언 / 작성 / 수정  ");
         System.out.println("-------------------------");
 
         List<WiseSaying> forListWiseSayings = wiseSayingservice.findForList();
 
         for (WiseSaying wiseSaying : forListWiseSayings) {
-            System.out.printf("%d / %s / %s \n", wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent());
+            System.out.printf("%d / %s / %s / %s / %s \n", wiseSaying.getId(), wiseSaying.getAuthor(), wiseSaying.getContent(), wiseSaying.getCreateDate(), wiseSaying.getModifyDate());
         }
     }
 
@@ -93,11 +93,11 @@ public class WiseSayingController {
         System.out.print("작가 : ");
         String author = sc.nextLine().trim();
 
-        wiseSaying.setContent(content);
-        wiseSaying.setAuthor(author);
 
         //수정할 때 수정이 불가능함 ->  setter
         System.out.println("%d번 명언은 수정되었습니다.".formatted(id));
+
+        wiseSayingservice.modify(wiseSaying,content,author);
     }
 
 
